@@ -1,7 +1,6 @@
 import argparse
 import multiprocessing as mp
 import os
-import threading
 import time
 
 import cv2
@@ -95,7 +94,8 @@ if __name__ == '__main__':
     # defines the processes
     streamer_proc = mp.Process(target=streamer_worker, args=(video_path, frames_queue, kill_procs))
     detector_proc = mp.Process(target=detector_worker, args=(frames_queue, frames_with_detections_queue, kill_procs))
-    presenter_proc = mp.Process(target=presenter_worker, args=(frames_with_detections_queue, video_fps, kill_procs, use_blur))
+    presenter_proc = mp.Process(target=presenter_worker,
+                                args=(frames_with_detections_queue, video_fps, kill_procs, use_blur))
 
     streamer_proc.start()
     detector_proc.start()

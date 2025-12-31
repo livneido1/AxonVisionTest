@@ -1,7 +1,8 @@
+from typing import Tuple, List
+
 import cv2
 import imutils
 import numpy as np
-from typing import Tuple, List
 
 
 class Detector:
