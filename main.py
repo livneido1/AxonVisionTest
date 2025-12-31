@@ -1,11 +1,13 @@
 import multiprocessing as mp
+
 import cv2
-from Streamer import Streamer
+
 from Detector import Detector
 from Presenter import Presenter
+from Streamer import Streamer
 
 
-def streamer_worker(path:str, produce_queue):
+def streamer_worker(path: str, produce_queue):
     streamer = Streamer(path)
     for frame in streamer.yield_frames():
         produce_queue.put(frame)
@@ -27,7 +29,7 @@ def detector_worker(consume_queue, produce_queue):
 
 
 def presenter_worker(consume_queue):
-    presenter = Presenter()
+    presenter = Presenter(use_blurring=True)
     while True:
         data = consume_queue.get()
         if data is None:
@@ -46,8 +48,8 @@ if __name__ == '__main__':
     video_path = r'C:\Users\97250\Desktop\ido\axonVIsion\code\People - 6387.mp4'
 
     # common queues to communication between processes
-    frames_queue = mp.Queue(maxsize=30) # prevent streamer to overload and filling up the RAM
-    frames_with_detections_queue = mp.Queue(maxsize=30) # prevent the detector to overload and filling up the RAM
+    frames_queue = mp.Queue(maxsize=30)  # prevent streamer to overload and filling up the RAM
+    frames_with_detections_queue = mp.Queue(maxsize=30)  # prevent the detector to overload and filling up the RAM
 
     # defines the processes
     streamer_proc = mp.Process(target=streamer_worker, args=(video_path, frames_queue))
