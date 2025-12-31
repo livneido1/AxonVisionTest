@@ -1,8 +1,9 @@
-import cv2
-import threading
 import queue
-import numpy as np
+import threading
 from typing import Iterator
+
+import cv2
+import numpy as np
 
 
 class Streamer:
@@ -28,6 +29,15 @@ class Streamer:
         # Signal that the video is finished
         self.frame_queue.put(None)
         cap.release()
+
+    @staticmethod
+    def get_video_fps(video_path: str) -> float:
+        """
+
+        :rtype: float
+        """
+        cap = cv2.VideoCapture(video_path)
+        return cap.get(cv2.CAP_PROP_FPS)
 
     def yield_frames(self) -> Iterator[np.ndarray]:
         """
