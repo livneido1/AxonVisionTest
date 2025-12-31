@@ -2,7 +2,6 @@ from Streamer import Streamer
 from Detector import Detector
 
 if __name__ == '__main__':
-    # Ensure your path is correct and the class 'Streamer' is defined
     streamer = Streamer(r'C:\Users\97250\Desktop\ido\axonVIsion\code\People - 6387.mp4')
     detector = Detector()
 
