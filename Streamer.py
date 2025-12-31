@@ -29,7 +29,7 @@ class Streamer:
         self.frame_queue.put(None)
         cap.release()
 
-    def yield_images(self) -> Iterator[np.ndarray]:
+    def yield_frames(self) -> Iterator[np.ndarray]:
         """
         consumer task (main thread) - yields images upon request to allow a smooth video
         :return:
